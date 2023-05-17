@@ -36,7 +36,7 @@ export default function HomePage() {
                                         Your app is ready to explore! It contains everything you
                                         need to get started including the{" "}
                                         <Link url="https://polaris.shopify.com/" external>
-                                            Polaris design system
+                                            Polaris of Bruce
                                         </Link>
                                         ,{" "}
                                         <Link url="https://shopify.dev/api/admin-graphql" external>

@@ -6,13 +6,13 @@ import {
     Image,
     Stack,
     Link,
-    Text,
+    Text, FormLayout, Form, TextField, Button,
 } from "@shopify/polaris";
 import { TitleBar } from "@shopify/app-bridge-react";
 
 import { trophyImage } from "../assets";
 
-import { ProductsCard } from "../components";
+import {CompanyInforForm, ProductsCard} from "../components";
 import React from "react";
 
 export default function HomePage() {
@@ -40,7 +40,13 @@ export default function HomePage() {
                     </Card>
                 </Layout.Section>
                 <Layout.Section>
-                    <ProductsCard />
+
+                        <Text variant="heading4xl" as="h2">
+                            Enter your Company Information:
+                        </Text>
+                        <FormLayout>
+                            <CompanyInforForm />
+                        </FormLayout>
                 </Layout.Section>
             </Layout>
         </Page>

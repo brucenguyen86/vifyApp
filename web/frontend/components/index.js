@@ -1,3 +1,3 @@
 export { ProductsCard } from "./ProductsCard";
 export * from "./providers";
-export { CompanyInforForm } from "./form.jsx"
+export { FormInfor } from "./form.jsx"

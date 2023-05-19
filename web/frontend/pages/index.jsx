@@ -1,54 +1,58 @@
 import {
-    Card,
     Page,
-    Layout,
-    TextContainer,
-    Image,
-    Stack,
-    Link,
-    Text, FormLayout, Form, TextField, Button,
+    Layout, LegacyCard, LegacyTabs,
 } from "@shopify/polaris";
-import { TitleBar } from "@shopify/app-bridge-react";
+import {TitleBar} from "@shopify/app-bridge-react";
 
-import { trophyImage } from "../assets";
-
-import {CompanyInforForm, ProductsCard} from "../components";
-import React from "react";
+import { FormInfor, ProductsCard} from "../components";
+import React, {useCallback, useState} from "react";
 
 export default function HomePage() {
-    return (
-        <Page narrowWidth>
-            <TitleBar title="App name" primaryAction={null} />
-            <Layout>
-                <Layout.Section>
-                    <Card sectioned>
-                        <Stack
-                            wrap={false}
-                            spacing="extraTight"
-                            distribution="trailing"
-                            alignment="center"
-                        >
-                            <Stack.Item fill>
-                                <TextContainer spacing="loose">
-                                   I would like to write something here
-                                </TextContainer>
-                            </Stack.Item>
-                            <Stack.Item>
-                                what is a stack Item?
-                            </Stack.Item>
-                        </Stack>
-                    </Card>
-                </Layout.Section>
-                <Layout.Section>
+    {/* Tab */
+    }
+    const [selected, setSelected] = useState(0);
 
-                        <Text variant="heading4xl" as="h2">
-                            Enter your Company Information:
-                        </Text>
-                        <FormLayout>
-                            <CompanyInforForm />
-                        </FormLayout>
-                </Layout.Section>
-            </Layout>
+    const handleTabChange = useCallback(
+        (selectedTabIndex) => setSelected(selectedTabIndex),
+        [],
+    );
+
+    const tabs = [
+        {
+            id: 'all-customers-1',
+            content: 'All',
+            accessibilityLabel: 'All customers',
+            panelID: 'all-customers-content-1',
+        },
+        {
+            id: 'accepts-marketing-1',
+            content: 'Accepts marketing',
+            panelID: 'accepts-marketing-content-1',
+        },
+        {
+            id: 'repeat-customers-1',
+            content: 'Repeat customers',
+            panelID: 'repeat-customers-content-1',
+        },
+        {
+            id: 'prospects-1',
+            content: 'Prospects',
+            panelID: 'prospects-content-1',
+        },
+    ];
+
+    return (
+        <Page>
+            <TitleBar title="Vify Invoice Generator" primaryAction={null}/>
+            <LegacyCard>
+                <LegacyTabs tabs={tabs} selected={selected} onSelect={handleTabChange}>
+                    <LegacyCard.Section title={tabs[selected].content}>
+                        <p>Tab {selected} selected</p>
+                    </LegacyCard.Section>
+                </LegacyTabs>
+            </LegacyCard>
+            <hr/>
+            <FormInfor />
         </Page>
     );
 }

@@ -36,21 +36,8 @@ export function CompanyInfor() {
         {label: 'Last 7 days', value: 'lastWeek'},
     ];
 
-    {/* Price */}
-        const [priceValue, setPriceValue] = useState('2.00');
 
-    const handlePriceChange = useCallback(
-        (value) => setPriceValue(value),
-        [],
-    );
-        {/* Quanity */
-        }
-        const [quantityValue, setQuantityValue] = useState('1.00');
 
-        const handleQuantityChange = useCallback(
-            (value) => setQuantityValue(value),
-            [],
-        );
         {/* Vertical Stack*/
         }
         const Placeholder = ({
@@ -172,28 +159,7 @@ export function CompanyInfor() {
                             <DropZone.FileUpload/>
                         </DropZone>
                     </FormLayout.Group>
-                    <FormLayout.Group condensed>
-                        <TextField label="Item" onChange={() => {
-                        }} autoComplete="off"/>
-                        <TextField label="Description" onChange={() => {
-                        }} autoComplete="off"/>
-                        <TextField
-                            label="Quantity"
-                            type="number"
-                            value={quantityValue}
-                            onChange={handleQuantityChange}
-                            autoComplete="off"
-                        />
-                        <TextField
-                            label="Price"
-                            type="number"
-                            value={priceValue}
-                            onChange={handlePriceChange}
-                            prefix="$"
-                            autoComplete="off"
-                        />
 
-                    </FormLayout.Group>
                     <hr/>
 
                 </FormLayout>

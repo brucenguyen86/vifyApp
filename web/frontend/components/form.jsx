@@ -7,6 +7,7 @@ import {
 import {CustomerInvoice} from "./CustomerInvoice.jsx";
 import {CompanyInfor} from "./CompanyInfor.jsx";
 import {Billing} from "./billing.jsx";
+import {Variants} from "./Variants.jsx";
 
 
 export function FormInfor() {

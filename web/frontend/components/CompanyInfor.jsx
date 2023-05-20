@@ -1,12 +1,10 @@
 import React, {useCallback, useState} from "react";
 import {
-    Button,
     FormLayout,
     TextField,
     Select,
     DropZone,
-    VerticalStack,
-    Text, HorizontalStack
+    Text, HorizontalStack,
 } from "@shopify/polaris";
 import "./css/style.css"
 export function CompanyInfor() {
@@ -92,9 +90,9 @@ export function CompanyInfor() {
 
         return (
 
-
                 <FormLayout>
                     <FormLayout.Group>
+
                         <div style={{alignContent: "flex-start", fontWeight: "bold"}}>
                             <h1>Enter Your company Information </h1>
                             <hr/>
@@ -197,16 +195,7 @@ export function CompanyInfor() {
 
                     </FormLayout.Group>
                     <hr/>
-                    <div>
-                        <p><label htmlFor="note">Notes::</label></p>
-                        <textarea id="note" name="note" rows="12" cols="64" placeholder={"Write some note here"}>
-                            </textarea>
-                    </div>
-                    <VerticalStack inlineAlign="stretch">
-                        <Placeholder height="48px" width="470px" label="Subtotal: " showBorder/>
-                        <Placeholder height="48px" width="470px" label="Tax: " showBorder/>
-                        <Placeholder height="48px" width="470px" label="Total: " showBorder/>
-                    </VerticalStack>
+
                 </FormLayout>
         );
     }

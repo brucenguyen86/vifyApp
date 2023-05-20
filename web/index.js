@@ -7,6 +7,9 @@ import serveStatic from "serve-static";
 import shopify from "./shopify.js";
 import productCreator from "./product-creator.js";
 import GDPRWebhookHandlers from "./gdpr.js";
+import fetchProducts from "./fetch-products.js";
+import { Shopify, LATEST_API_VERSION } from "@shopify/shopify-api";
+
 
 const PORT = parseInt(
   process.env.BACKEND_PORT || process.env.PORT || "3000",
@@ -43,7 +46,17 @@ app.get("/api/products/count", async (_req, res) => {
   const countData = await shopify.api.rest.Product.count({
     session: res.locals.shopify.session,
   });
+
   res.status(200).send(countData);
+});
+
+
+// fetch products
+app.get("/api/products", async (_req, res) => {
+  let status = 200;
+
+   const products= await fetchProducts(res.locals.shopify.session);
+  res.status(status).send({products} );
 });
 
 app.get("/api/products/create", async (_req, res) => {

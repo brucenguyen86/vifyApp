@@ -2,15 +2,11 @@ import React, {useCallback, useState} from "react";
 import {
     Button,
     Form,
-    FormLayout,
-    TextField,
-    Select,
-    DropZone,
-    VerticalStack,
-    Text, HorizontalStack, Layout
+     Layout, AlphaCard
 } from "@shopify/polaris";
 import {CustomerInvoice} from "./CustomerInvoice.jsx";
 import {CompanyInfor} from "./CompanyInfor.jsx";
+import {Billing} from "./billing.jsx";
 
 
 export function FormInfor() {
@@ -27,22 +23,19 @@ export function FormInfor() {
 
         return (
 
-            <Form onSubmit={handleSubmit}>
-                <Layout>
+                    <AlphaCard padding={"2"} background={"bg-subdued"}>
 
-                    <Layout.Section oneHalf={true}>
-                        <CompanyInfor />
-                    </Layout.Section>
-                    <Layout.Section oneHalf={true}>
-                        <CustomerInvoice />
-                    </Layout.Section>
+                        <Form onSubmit={handleSubmit}>
+                            <CompanyInfor />
+                            <CustomerInvoice />
+                            <Billing />
+                            <Button submit>Submit</Button>
+                        </Form>
 
-                </Layout>
+                    </AlphaCard>
 
 
-                <Button submit>Submit</Button>
 
-            </Form>
         );
     }
 

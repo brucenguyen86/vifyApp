@@ -1,76 +1,75 @@
 import {
-    Page,
-    Layout, LegacyCard, LegacyTabs, AlphaCard,
+    Page, Layout, AlphaCard, Form, Button,
 } from "@shopify/polaris";
 import {TitleBar} from "@shopify/app-bridge-react";
 
-import {FormInfor, ProductCard,ProductsCard} from "../components";
+import {
+    Billing,
+    CompanyInfor,
+    CustomerInvoice,
+    FormInfor,
+    ProductsCard,
+    ProductSelector,
+    ProductList
+} from "../components";
 import React, {useCallback, useState} from "react";
 import {useAppQuery} from "../hooks/index.js";
-import {CompanyInfor} from "../components/CompanyInfor.jsx";
-import {ProductList} from "../components/ProductList.jsx";
+
 
 export default function HomePage() {
     // Hooks : helps to query better from the backend
-    const {data, isLoading, refetch,isRefetching} = useAppQuery({
+    const {data, isLoading, refetch, isRefetching} = useAppQuery({
         url: "/api/products",
     });
 
-    console.log("data: ",data)
+    console.log("data: ", data)
+
+    //fetch Customers
+    // const {data, isLoading,refetch, isRefetching} = useAppQuery({
+    //     url: "/api/customers",
+    // });
+    //
+    // console.log("dataCustomer", data)
 
 
-    {/* Tab */
-    }
-    const [selected, setSelected] = useState(0);
+// Handle Submit
+    const [newsletter, setNewsletter] = useState(false);
+    const [email, setEmail] = useState('');
 
-    const handleTabChange = useCallback(
-        (selectedTabIndex) => setSelected(selectedTabIndex),
-        [],
-    );
+    const handleSubmit = useCallback(() => {
 
-    const tabs = [
-        {
-            id: 'all-customers-1',
-            content: 'All',
-            accessibilityLabel: 'All customers',
-            panelID: 'all-customers-content-1',
         },
-        {
-            id: 'accepts-marketing-1',
-            content: 'Accepts marketing',
-            panelID: 'accepts-marketing-content-1',
-        },
-        {
-            id: 'repeat-customers-1',
-            content: 'Repeat customers',
-            panelID: 'repeat-customers-content-1',
-        },
-        {
-            id: 'prospects-1',
-            content: 'Prospects',
-            panelID: 'prospects-content-1',
-        },
-    ];
+        []);
 
-    return (
-        <Page>
+
+    return (<Page>
             <TitleBar title="Vify Invoice Generator" primaryAction={null}/>
             <Layout>
-
-            <Layout.Section >
-
-            <FormInfor />
-            </Layout.Section>
-
                 <Layout.Section>
-                   <ProductList data={data} isLoading={isLoading} isRefetching={isRefetching} />
+                    <AlphaCard padding={"2"} background={"bg-subdued"}>
+                        <Form onSubmit={handleSubmit}>
+                            <CompanyInfor/>
+                            <CustomerInvoice/>
+
+                            <Button>Submit</Button>
+                        </Form>
+                    </AlphaCard>
                 </Layout.Section>
                 <Layout.Section>
-
+                    {/*<Billing data={data}/>*/}
+                </Layout.Section>
+                <Layout.Section>
+                    <ProductsCard/>
+                </Layout.Section>
+                <Layout.Section>
+                    <ProductList data={data} isLoading={isLoading} isRefetching={isRefetching}/>
 
                 </Layout.Section>
-
+                <Layout.Section>
+                    <ProductSelector data={data} isLoading={isLoading} isRefetching={isRefetching}/>
+                </Layout.Section>
             </Layout>
         </Page>
     );
 }
+

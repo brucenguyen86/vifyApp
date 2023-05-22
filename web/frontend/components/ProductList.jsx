@@ -1,24 +1,25 @@
-import {ProductCard} from "./ProductCard.jsx";
-import {AlphaCard, EmptyState, Layout, Spinner} from "@shopify/polaris";
-import {trophyImage} from "../assets/index.js";
 
-export const ProductList = ({data,isLoading,isRefetching}) =>{
-    if ( isLoading || isRefetching )  {
+import { Layout, Spinner} from "@shopify/polaris";
+import {ProductCard} from "./ProductCard.jsx";
+
+
+
+export const ProductList = ({data, isLoading, isRefetching}) => {
+    if (isLoading || isRefetching) {
         return (
             <Layout>
-                <Spinner />
+                <Spinner/>
             </Layout>
         );
     }
+    const printProductCard = products =>
+        products.filter(product => product.id === "gid://shopify/Product/8363751244077")
+            .map(product => <ProductCard {...product} ></ProductCard> );
+
 
     return <Layout>
-        {data?.products.length ?data.products.map(product => <Layout.Section>
-            <ProductCard {...product}></ProductCard>
-        </Layout.Section>)
-        : <Layout.Section>
-                <AlphaCard>
-                    <EmptyState image={trophyImage} heading = "No Products Found" ></EmptyState>
-                </AlphaCard>
-            </Layout.Section> }
-    </Layout>
+        { printProductCard(data.products) }
+    </Layout>;
+
 }
+

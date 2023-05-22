@@ -1,12 +1,12 @@
 import React, {useCallback, useState} from "react";
 import {
-    FormLayout, LegacyCard, ResourceList, LegacyStack, TextField, Select,
+    FormLayout, LegacyCard, ResourceList, LegacyStack, TextField, Select, Layout, Spinner,
 
 } from "@shopify/polaris";
 import TextareaAutosize from "@mui/base/TextareaAutosize";
 
 
-export function Billing() {
+export function Billing({data}) {
     {/* Quanity */
     }
     const [quantityValue, setQuantityValue] = useState('1.00');
@@ -15,30 +15,66 @@ export function Billing() {
         (value) => setQuantityValue(value),
         [],
     );
-    {/* Price */
+    {/* Tax */
     }
-    const [priceValue, setPriceValue] = useState('2.00');
+    const [taxValue, setTaxValue] = useState('13');
 
-    const handlePriceChange = useCallback(
-        (value) => setPriceValue(value),
+    const handleTaxValue = useCallback(
+        (value) => setTaxValue(value),
         [],
     );
+
 
     {/* Select */
     }
 
-    const [selected, setSelected] = useState('today');
+    const [selected, setSelected] = useState('Default');
 
     const handleSelectChange = useCallback(
         (value) => setSelected(value),
         [],
     );
 
-    const options = [
-        {label: 'Today', value: 'today'},
-        {label: 'Yesterday', value: 'yesterday'},
-        {label: 'Last 7 days', value: 'lastWeek'},
-    ];
+    const options= []
+    data.products.map(product => {
+        const temp = {label: product.title,value: product.id }
+        options.push(temp);
+    })
+
+const handleDescription = useCallback((selected) =>
+        data.products.map( product =>  {
+        if (product.id === selected) return product.description
+            }),
+            [],
+        )
+    const handlePrice = useCallback((selected) =>
+            data.products.map( product =>  {
+                if (product.id === selected) return product.variants[0].price
+            }),
+        [],
+    )
+
+    const handleSubTotal = useCallback((selected,qualityValue) =>
+            data.products.map( product =>  {
+                if (product.id === selected) return product.variants[0].price * qualityValue
+            }),
+        [],
+    )
+
+    const handleTotal = useCallback((selected,taxValue,quantityValue) =>
+            data.products.map( product =>  {
+                if (product.id === selected) return taxValue * handleSubTotal(selected,quantityValue)
+            }),
+        [],
+    )
+
+    // if (isLoading || isRefetching) {
+    //     return (
+    //         <Layout>
+    //             <Spinner/>
+    //         </Layout>
+    //     );
+    // }
 
     return (
         <FormLayout>
@@ -49,15 +85,18 @@ export function Billing() {
 
             <FormLayout.Group condensed ={true}>
                 <Select
-                    label="Country"
+                    label="Product"
                     options={options}
                     onChange={handleSelectChange}
                     value={selected}
+
                 />
                 <TextField
                     label="Description"
-                    onChange={() => {}}
-                    autoComplete="off"/>
+                    autoComplete="off"
+                    value = {handleDescription(selected)}
+
+                />
                 <TextField
                     label="Quantity"
                     type="number"
@@ -67,12 +106,11 @@ export function Billing() {
                 />
                 <TextField
                     label="Price"
-                    type="number"
-                    value={priceValue}
-                    onChange={handlePriceChange}
+                    value={handlePrice(selected)}
                     prefix="$"
                     autoComplete="off"
                 />
+
 
             </FormLayout.Group>
 
@@ -82,36 +120,28 @@ export function Billing() {
                 <LegacyCard>
 
                     <LegacyCard.Section title="Your Bill">
-                        <ResourceList
-                            resourceName={{singular: 'sale', plural: 'sales'}}
-                            items={[
-                                {
-                                    sales: 'SUBTOTAL',
-                                    amount: 'USD$0.00',
-                                    url: '#',
-                                },
-                                {
-                                    sales: 'TAX',
-                                    amount: '13%',
-                                    url: '#',
-                                },
-                            ]}
-                            renderItem={(item) => {
-                                const {sales, amount, url} = item;
-                                return (
-                                    <ResourceList.Item
-                                        id={item.sales.toLocaleLowerCase()}
-                                        url={url}
-                                        accessibilityLabel={`View Sales for ${sales}`}
-                                    >
-                                        <LegacyStack>
-                                            <LegacyStack.Item fill>{sales}</LegacyStack.Item>
-                                            <LegacyStack.Item>{amount}</LegacyStack.Item>
-                                        </LegacyStack>
-                                    </ResourceList.Item>
-                                );
-                            }}
+                        <TextField
+                            label="Subtotal"
+                            value={handleSubTotal(selected,quantityValue)}
+                            prefix="$"
+                            autoComplete="off"
                         />
+                        <TextField
+                            label="Tax"
+                            type="number"
+                            prefix="%"
+                            value={taxValue}
+                            onChange={handleTaxValue}
+                            autoComplete="off"
+                        />
+                        <TextField
+                            label="Total"
+                            type="number"
+                            prefix="$"
+                            value={handleTotal(selected,taxValue,quantityValue)}
+                            autoComplete="off"
+                        />
+
                     </LegacyCard.Section>
                 </LegacyCard>
 

@@ -1,12 +1,9 @@
 import {
-    IndexTable,
-    LegacyCard,
-    useIndexResourceState,
-    Text, TextField
+    IndexTable, LegacyCard, useIndexResourceState, TextField
 } from '@shopify/polaris';
 import React from 'react';
 
-export const Variants =({variants, updateVariant}) => {
+export const Variants = ({variants, updateVariant}) => {
     // Variant :
 
 
@@ -15,50 +12,38 @@ export const Variants =({variants, updateVariant}) => {
         plural: 'variants',
     };
 
-    const {selectedResources, allResourcesSelected, handleSelectionChange} =
-        useIndexResourceState(variants);
+    const {selectedResources, allResourcesSelected, handleSelectionChange} = useIndexResourceState(variants);
 
-    const rowMarkup = variants.map(
-        (
-            {id,title,price},index
-        ) => (
-            <IndexTable.Row
-                id={id}
-                key={id}
-                selected={selectedResources.includes(id)}
-                position={index}
-            >
-                <IndexTable.Cell>{title}</IndexTable.Cell>
-                <IndexTable.Cell>
-                    <TextField
-                        autoComplete="off"
-                        prefix="$"
-                        label="Price"
-                        labelHidden={true}
-                        value={price}
-                        onChange={(pr) => updateVariant(id,pr)}
-                    ></TextField>
-                </IndexTable.Cell>
+    const rowMarkup = variants.map(({id, title, price}, index) => (
+        <IndexTable.Row
+            id={id}
+            key={id}
+            selected={selectedResources.includes(id)}
+            position={index}
+        >
+            <IndexTable.Cell>{title}</IndexTable.Cell>
+            <IndexTable.Cell>
+                <TextField
+                    autoComplete="on"
+                    prefix="$"
+                    label="Price"
+                    labelHidden={true}
+                    value={price} // the value of variant.price
+                    onChange={price => updateVariant(id,price)} // id here is the value of each variant , price here is the changed value
+                ></TextField>
+            </IndexTable.Cell>
 
 
+        </IndexTable.Row>),);
 
-            </IndexTable.Row>
-        ),
-    );
-
-    return (
-        <LegacyCard>
+    return (<LegacyCard>
             <IndexTable
                 resourceName={resourceName}
                 itemCount={variants.length}
-                selectedItemsCount={
-                    allResourcesSelected ? 'All' : selectedResources.length
-                }
-                onSelectionChange={handleSelectionChange}
-                headings={[
-                    {title: 'Title'},
-                    {title: 'Price'},
-                ]}
+                // selectedItemsCount={allResourcesSelected ? 'All' : selectedResources.length}
+                // onSelectionChange= {handleSelectionChange}
+                headings={[{title: 'Title'}, {title: 'Price'},]}
+                selectable={false}
             >
                 {rowMarkup}
             </IndexTable>

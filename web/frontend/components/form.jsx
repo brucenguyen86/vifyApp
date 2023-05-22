@@ -6,8 +6,7 @@ import {
 } from "@shopify/polaris";
 import {CustomerInvoice} from "./CustomerInvoice.jsx";
 import {CompanyInfor} from "./CompanyInfor.jsx";
-import {Billing} from "./billing.jsx";
-import {Variants} from "./Variants.jsx";
+
 
 
 export function FormInfor() {
@@ -29,7 +28,7 @@ export function FormInfor() {
                         <Form onSubmit={handleSubmit}>
                             <CompanyInfor />
                             <CustomerInvoice />
-                            <Billing />
+
                             <Button submit>Submit</Button>
                         </Form>
 

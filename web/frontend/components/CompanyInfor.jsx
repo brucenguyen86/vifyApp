@@ -20,6 +20,22 @@ export function CompanyInfor() {
         (value) => setTextFieldValue(value),
         [],
     );
+    {/* Email field */
+    }
+    const [emailAddress, setEmailAddress] = useState('');
+
+    const handleEmailAddress = useCallback(
+        (value) => setEmailAddress(value),
+        [],
+    );
+    {/* Company field */
+    }
+    const [companyName, setCompanyName] = useState('');
+
+    const handleCompanyName = useCallback(
+        (value) => setCompanyName(value),
+        [],
+    );
     {/* Select */
     }
 
@@ -87,25 +103,19 @@ export function CompanyInfor() {
                     </FormLayout.Group>
 
 
-                    <TextField
-                        value={email}
-                        onChange={handleEmailChange}
-                        label="Email"
-                        type="email"
-                        autoComplete="email"
-                    />
+
                     <FormLayout.Group>
                         <TextField
                             label="Your company's name: "
-                            value={textFieldValue}
-                            onChange={handleTextFieldChange}
+                            value={companyName}
+                            onChange={handleCompanyName}
                             placeholder="Example: ABC Limited"
                             autoComplete="off"
                         />
                         <TextField
                             label="Email Adress "
-                            value={textFieldValue}
-                            onChange={handleTextFieldChange}
+                            value={emailAddress}
+                            onChange={handleEmailAddress}
                             placeholder="Example: abc@gmai.com"
                             autoComplete="off"
                         />

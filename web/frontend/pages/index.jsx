@@ -16,6 +16,7 @@ import React, {useCallback, useState} from "react";
 import {useAppQuery} from "../hooks/index.js";
 
 
+
 export default function HomePage() {
     // Hooks : helps to query better from the backend
     const {data, isLoading, refetch, isRefetching} = useAppQuery({
@@ -37,7 +38,6 @@ export default function HomePage() {
     const [email, setEmail] = useState('');
 
     const handleSubmit = useCallback(() => {
-
         },
         []);
 
@@ -50,7 +50,6 @@ export default function HomePage() {
                         <Form onSubmit={handleSubmit}>
                             <CompanyInfor/>
                             <CustomerInvoice/>
-
                             <Button>Submit</Button>
                         </Form>
                     </AlphaCard>

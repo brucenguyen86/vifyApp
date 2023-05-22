@@ -1,12 +1,10 @@
 import React, {useCallback, useState} from "react";
 import {
-    Button,
     FormLayout,
     TextField,
     Select,
     DropZone,
-    VerticalStack,
-    Text, HorizontalStack
+    Text, HorizontalStack,
 } from "@shopify/polaris";
 import "./css/style.css"
 export function CompanyInfor() {
@@ -38,21 +36,8 @@ export function CompanyInfor() {
         {label: 'Last 7 days', value: 'lastWeek'},
     ];
 
-    {/* Price */}
-        const [priceValue, setPriceValue] = useState('2.00');
 
-    const handlePriceChange = useCallback(
-        (value) => setPriceValue(value),
-        [],
-    );
-        {/* Quanity */
-        }
-        const [quantityValue, setQuantityValue] = useState('1.00');
 
-        const handleQuantityChange = useCallback(
-            (value) => setQuantityValue(value),
-            [],
-        );
         {/* Vertical Stack*/
         }
         const Placeholder = ({
@@ -92,9 +77,9 @@ export function CompanyInfor() {
 
         return (
 
-
                 <FormLayout>
                     <FormLayout.Group>
+
                         <div style={{alignContent: "flex-start", fontWeight: "bold"}}>
                             <h1>Enter Your company Information </h1>
                             <hr/>
@@ -174,39 +159,9 @@ export function CompanyInfor() {
                             <DropZone.FileUpload/>
                         </DropZone>
                     </FormLayout.Group>
-                    <FormLayout.Group condensed>
-                        <TextField label="Item" onChange={() => {
-                        }} autoComplete="off"/>
-                        <TextField label="Description" onChange={() => {
-                        }} autoComplete="off"/>
-                        <TextField
-                            label="Quantity"
-                            type="number"
-                            value={quantityValue}
-                            onChange={handleQuantityChange}
-                            autoComplete="off"
-                        />
-                        <TextField
-                            label="Price"
-                            type="number"
-                            value={priceValue}
-                            onChange={handlePriceChange}
-                            prefix="$"
-                            autoComplete="off"
-                        />
 
-                    </FormLayout.Group>
                     <hr/>
-                    <div>
-                        <p><label htmlFor="note">Notes::</label></p>
-                        <textarea id="note" name="note" rows="12" cols="64" placeholder={"Write some note here"}>
-                            </textarea>
-                    </div>
-                    <VerticalStack inlineAlign="stretch">
-                        <Placeholder height="48px" width="470px" label="Subtotal: " showBorder/>
-                        <Placeholder height="48px" width="470px" label="Tax: " showBorder/>
-                        <Placeholder height="48px" width="470px" label="Total: " showBorder/>
-                    </VerticalStack>
+
                 </FormLayout>
         );
     }

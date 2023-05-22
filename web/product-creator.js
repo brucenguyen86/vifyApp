@@ -68,6 +68,16 @@ const NOUNS = [
   "fire",
   "flower",
 ];
+const IMAGES = [
+  "https://res.cloudinary.com/dci7ukl75/image/upload/v1668552461/BYOA/709618-0320_e20ckp.jpg",
+  "https://res.cloudinary.com/dci7ukl75/image/upload/v1668552412/BYOA/22-02-2021_MO_112247-NAVY_1_1_cseojc.webp",
+  "https://res.cloudinary.com/dci7ukl75/image/upload/v1668552374/BYOA/ipad-mini-select-202109_FMT_WHH_cb84pl.jpg",
+  "https://res.cloudinary.com/dci7ukl75/image/upload/v1668552374/BYOA/MPLD3_VW_34FR_watch-45-alum-starlight-nc-8s_VW_34FR_WF_CO_dgkcic.jpg",
+  "https://res.cloudinary.com/dci7ukl75/image/upload/v1668552374/BYOA/MQDY3ref_VW_34FR_watch-49-titanium-ultra_VW_34FR_WF_CO_watch-face-49-alpine-ultra_VW_34FR_WF_CO_il7bdy.jpg",
+  "https://res.cloudinary.com/dci7ukl75/image/upload/v1668552374/BYOA/buoy_wear_floating_hat-10_rqeipt.jpg",
+  "https://res.cloudinary.com/dci7ukl75/image/upload/v1668552374/BYOA/drinkcupsocks_product2_1_1_grande_autj8d.webp",
+  "https://res.cloudinary.com/dci7ukl75/image/upload/v1668552374/BYOA/20211202-141138_FGS169_Gloves_Hawk_Black_front_iri8qc.webp",
+];
 
 export const DEFAULT_PRODUCTS_COUNT = 5;
 const CREATE_PRODUCTS_MUTATION = `
@@ -95,6 +105,8 @@ export default async function productCreator(
             input: {
               title: `${randomTitle()}`,
               variants: [{ price: randomPrice() }],
+              images: [{src: randomImage()}],
+              descriptionHtml: 'This is a default description'
             },
           },
         },
@@ -119,4 +131,8 @@ function randomTitle() {
 
 function randomPrice() {
   return Math.round((Math.random() * 10 + Number.EPSILON) * 100) / 100;
+}
+
+function randomImage(){
+  return  IMAGES[Math.floor(Math.random()*IMAGES.length)];
 }

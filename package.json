@@ -14,6 +14,7 @@
   "dependencies": {
     "@shopify/app": "3.45.4",
     "@shopify/cli": "3.45.4",
+    "mongodb": "5.5",
     "nodemon": "^2.0.22"
   },
   "author": "Brucenguyen"

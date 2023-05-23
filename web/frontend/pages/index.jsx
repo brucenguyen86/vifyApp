@@ -14,6 +14,8 @@ import {
 } from "../components";
 import React, {useCallback, useState} from "react";
 import {useAppQuery} from "../hooks/index.js";
+import {MyForm} from "../components/formTemplate.jsx";
+import FormReact from "../components/formReact.jsx";
 
 
 
@@ -50,11 +52,13 @@ export default function HomePage() {
                         <Form onSubmit={handleSubmit}>
                             <CompanyInfor/>
                             <CustomerInvoice/>
-                            <Button>Submit</Button>
+                            <Button submit={true}>Submit</Button>
                         </Form>
                     </AlphaCard>
                 </Layout.Section>
                 <Layout.Section>
+                    {/*<MyForm />*/}
+                    <FormReact />
                     {/*<Billing data={data}/>*/}
                 </Layout.Section>
                 <Layout.Section>

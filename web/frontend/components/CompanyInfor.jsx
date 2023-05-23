@@ -9,17 +9,9 @@ import {
 import "./css/style.css"
 export function CompanyInfor() {
 
-    const [newsletter, setNewsletter] = useState(false);
-    const [email, setEmail] = useState('');
-    const handleEmailChange = useCallback((value) => setEmail(value), []);
-    {/* Text field */
-    }
-    const [textFieldValue, setTextFieldValue] = useState('');
 
-    const handleTextFieldChange = useCallback(
-        (value) => setTextFieldValue(value),
-        [],
-    );
+
+
     {/* Email field */
     }
     const [emailAddress, setEmailAddress] = useState('');
@@ -124,8 +116,8 @@ export function CompanyInfor() {
                     <FormLayout.Group>
                         <TextField
                             label="Your company's address: "
-                            value={textFieldValue}
-                            onChange={handleTextFieldChange}
+                            // value={companyAdress}
+                            // onChange={handleCompanyAddress}
                             placeholder="Example: 123 Highland Street"
                             autoComplete="off"
                         />
@@ -134,15 +126,15 @@ export function CompanyInfor() {
                     <FormLayout.Group>
                         <TextField
                             label="City:  "
-                            value={textFieldValue}
-                            onChange={handleTextFieldChange}
+                            // value={cityValue}
+                            // onChange={handleCityValue}
                             placeholder="Example: Brisbane"
                             autoComplete="off"
                         />
                         <TextField
                             label="Zip Code "
-                            value={textFieldValue}
-                            onChange={handleTextFieldChange}
+                            // value={zipCodeValue}
+                            // onChange={handleZipCodeValue}
                             placeholder="Example: 400120"
                             autoComplete="off"
                         />
@@ -152,13 +144,13 @@ export function CompanyInfor() {
                         <Select
                             label="Country"
                             options={options}
-                            onChange={handleSelectChange}
+                            // onChange={handleCountry}
                             value={selected}
                         />
                         <Select
                             label="State / Province"
                             options={options}
-                            onChange={handleSelectChange}
+                            // onChange={handleSate}
                             value={selected}
                         />
                     </FormLayout.Group>

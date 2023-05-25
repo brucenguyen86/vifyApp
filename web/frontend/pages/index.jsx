@@ -1,75 +1,70 @@
 import {
-    Page, Layout, AlphaCard, Form, Button,
+    Page, Layout,  LegacyCard, SkeletonBodyText, EmptyState,
 } from "@shopify/polaris";
-import {TitleBar} from "@shopify/app-bridge-react";
+import {Loading, TitleBar} from "@shopify/app-bridge-react";
 
-import {
-    Billing,
-    CompanyInfor,
-    CustomerInvoice,
-    FormInfor,
-    ProductsCard,
-    ProductSelector,
-    ProductList
-} from "../components";
 import React, {useCallback, useState} from "react";
-import {useAppQuery} from "../hooks/index.js";
-import {MyForm} from "../components/formTemplate.jsx";
-import FormReact from "../components/formReact.jsx";
 
+import {InvoiceIndex} from "../components";
+import {navigate} from "jsdom/lib/jsdom/living/window/navigation.js";
+import {useAppQuery} from "../hooks/index.js";
 
 
 export default function HomePage() {
-    // Hooks : helps to query better from the backend
-    const {data, isLoading, refetch, isRefetching} = useAppQuery({
+
+
+    const {
+        data: products,
+        isLoading,
+        isRefetching,
+    } = useAppQuery({
         url: "/api/products",
     });
 
-    console.log("data: ", data)
 
-    //fetch Customers
-    // const {data, isLoading,refetch, isRefetching} = useAppQuery({
-    //     url: "/api/customers",
-    // });
-    //
-    // console.log("dataCustomer", data)
+    // Set the products to use in the list
+const productMarkup = products?.length ? (
+    <InvoiceIndex products = {products } loading={isRefetching}/>
+) : null;
+    /* loadingMarkup uses the loading component from AppBridge and components from Polaris*/
+    const loadingMarkup = isLoading ? (
+        <LegacyCard sectioned={true}>
+            <Loading />
+            <SkeletonBodyText />
+        </LegacyCard>
+    ): null;
+    /* Use Polaris card and EmptyState componets to define the contents of the empty state*/
+    const emptyStateMarkup =
+        !isLoading && !products?.length ? (
+            <LegacyCard sectioned={true}>
+                <EmptyState image={"https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"}
+                heading = "Create an Invoice for your Order"
+                            action={{
+                                content: "Create your Invoice",
+                                onAction: () => navigate("/products/new"),
+                                }
+                            }
+                >
+                    <p> Create your Invoice</p>
 
-
-// Handle Submit
-    const [newsletter, setNewsletter] = useState(false);
-    const [email, setEmail] = useState('');
-
-    const handleSubmit = useCallback(() => {
-        },
-        []);
+                </EmptyState>
+            </LegacyCard>
+        ) : null;
 
 
     return (<Page>
-            <TitleBar title="Vify Invoice Generator" primaryAction={null}/>
+            <TitleBar title="Vify Invoice Generator"
+                      primaryAction={{
+                          content: "Create Invoice",
+                          onAction: () => navigate("/products/new"),
+                          }
+                      }
+            />
             <Layout>
                 <Layout.Section>
-                    <AlphaCard padding={"2"} background={"bg-subdued"}>
-                        <Form onSubmit={handleSubmit}>
-                            <CompanyInfor/>
-                            <CustomerInvoice/>
-                            <Button submit={true}>Submit</Button>
-                        </Form>
-                    </AlphaCard>
-                </Layout.Section>
-                <Layout.Section>
-                    {/*<MyForm />*/}
-                    <FormReact />
-                    {/*<Billing data={data}/>*/}
-                </Layout.Section>
-                <Layout.Section>
-                    <ProductsCard/>
-                </Layout.Section>
-                <Layout.Section>
-                    <ProductList data={data} isLoading={isLoading} isRefetching={isRefetching}/>
-
-                </Layout.Section>
-                <Layout.Section>
-                    <ProductSelector data={data} isLoading={isLoading} isRefetching={isRefetching}/>
+                    {loadingMarkup}
+                    {productMarkup}
+                    {emptyStateMarkup}
                 </Layout.Section>
             </Layout>
         </Page>

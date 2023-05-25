@@ -4,9 +4,17 @@ import {
 
 } from "@shopify/polaris";
 import TextareaAutosize from "@mui/base/TextareaAutosize";
+/* Import the useAuthenticatedFetch hook included in the Node app template */
+import { useAuthenticatedFetch, useAppQuery } from "../hooks";
+
+/* Import custom hooks for forms */
+import { useForm, useField, notEmptyString } from "@shopify/react-form";
 
 
-export function Billing({data}) {
+export function Billing({data,isLoading,isRefetching}) {
+
+
+
     {/* Quanity */
     }
     const [quantityValue, setQuantityValue] = useState('1.00');
@@ -68,13 +76,13 @@ const handleDescription = useCallback((selected) =>
         [],
     )
 
-    // if (isLoading || isRefetching) {
-    //     return (
-    //         <Layout>
-    //             <Spinner/>
-    //         </Layout>
-    //     );
-    // }
+    if (isLoading || isRefetching) {
+        return (
+            <Layout>
+                <Spinner/>
+            </Layout>
+        );
+    }
 
     return (
         <FormLayout>

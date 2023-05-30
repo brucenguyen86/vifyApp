@@ -9,12 +9,7 @@ import { useAuthenticatedFetch, useAppQuery } from "../hooks";
 
 /* Import custom hooks for forms */
 import { useForm, useField, notEmptyString } from "@shopify/react-form";
-
-
 export function Billing({data,isLoading,isRefetching}) {
-
-
-
     {/* Quanity */
     }
     const [quantityValue, setQuantityValue] = useState('1.00');

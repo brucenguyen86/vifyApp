@@ -1,8 +1,4 @@
 # This file stores configurations for your Shopify app.
 
-scopes = "write_products"
+scopes = "write_products,write_customers,write_orders,read_customers,read_orders"
 #My new codes
-#scopes = "read_customers"
-#scopes = "read_customers"
-#scopes ="read_orders"
-#scopes = "read_all_orders"

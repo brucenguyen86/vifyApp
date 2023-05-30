@@ -7,15 +7,19 @@ let { restResources } = await import(
 // New codes from me
 import sqlite3 from "sqlite3";
 import {join} from "path";
-import {ProductsDB} from "./products-db.js";
+import {OrdersDB} from "./backend/database/Orders_db.js";
+import {InvoicesDb} from "./backend/database/invoices-db.js";
 
-
-
+//
 const database = new sqlite3.Database(join(process.cwd(), "database.sqlite"));
 const sessionDb = new SQLiteSessionStorage(database);
 // Initialize SQLite DB
-ProductsDB.db = database;
-ProductsDB.init();
+InvoicesDb.db = database;
+InvoicesDb.init().then(r => console.log("Invoice Database connected"));
+// const database_order = new sqlite3.Database(join(process.cwd(), "database.sqlite"));
+// const sessionDb_order = new SQLiteSessionStorage(database_order);
+// OrdersDB.db = database_order;
+// OrdersDB.init().then(r => console.log("Order Database connected"))
 
 const shopify = shopifyApp({
   api: {
@@ -28,7 +32,7 @@ const shopify = shopifyApp({
   webhooks: {
     path: "/api/webhooks",
   },
-  sessionStorage: sessionDb,
+  sessionStorage: sessionDb
 });
 
 export default shopify;

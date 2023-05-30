@@ -6,7 +6,11 @@ import serveStatic from "serve-static";
 
 import shopify from "./shopify.js";
 import GDPRWebhookHandlers from "./gdpr.js";
+// import applyProductApiEndpoints from "./middleware/product-api.js";
+import applyOrderApiEndpoints from "./middleware/order-api.js";
 import applyProductApiEndpoints from "./middleware/product-api.js";
+import applyCustomerApiEndpoints from "./middleware/customer_api.js";
+import applyInvoiceApiEndpoints from "./middleware/invoice_api.js";
 
 
 const PORT = parseInt(
@@ -41,6 +45,10 @@ app.use(express.json());
 
 // New codes from me :
 applyProductApiEndpoints(app);
+applyOrderApiEndpoints(app);
+applyInvoiceApiEndpoints(app);
+// fetch Customers
+applyCustomerApiEndpoints(app)
 
 app.use(serveStatic(STATIC_PATH,{index:false}));
 

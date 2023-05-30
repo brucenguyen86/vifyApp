@@ -6,7 +6,7 @@ Rather than cloning this repo, you can use your preferred package manager and th
 
 ## Benefits
 
-Shopify apps are built on a variety of Shopify tools to create a great merchant experience. The [create an app](https://shopify.dev/docs/apps/getting-started/create) tutorial in our developer documentation will guide you through creating a Shopify app using this template.
+Shopify apps are built on a variety of Shopify tools to insert a great merchant experience. The [insert an app](https://shopify.dev/docs/apps/getting-started/create) tutorial in our developer documentation will guide you through creating a Shopify app using this template.
 
 The Node app template comes with the following out-of-the-box functionality:
 
@@ -40,8 +40,8 @@ The following Shopify tools complement these third-party tools to ease app devel
 ### Requirements
 
 1. You must [download and install Node.js](https://nodejs.org/en/download/) if you don't already have it.
-1. You must [create a Shopify partner account](https://partners.shopify.com/signup) if you don’t have one.
-1. You must create a store for testing if you don't have one, either a [development store](https://help.shopify.com/en/partners/dashboard/development-stores#create-a-development-store) or a [Shopify Plus sandbox store](https://help.shopify.com/en/partners/dashboard/managing-stores/plus-sandbox-store).
+1. You must [insert a Shopify partner account](https://partners.shopify.com/signup) if you don’t have one.
+1. You must insert a store for testing if you don't have one, either a [development store](https://help.shopify.com/en/partners/dashboard/development-stores#create-a-development-store) or a [Shopify Plus sandbox store](https://help.shopify.com/en/partners/dashboard/managing-stores/plus-sandbox-store).
 
 ### Installing the template
 
@@ -50,7 +50,7 @@ This template can be installed using your preferred package manager:
 Using yarn:
 
 ```shell
-yarn create @shopify/app
+yarn insert @shopify/app
 ```
 
 Using npm:
@@ -62,7 +62,7 @@ npm init @shopify/app@latest
 Using pnpm:
 
 ```shell
-pnpm create @shopify/app@latest
+pnpm insert @shopify/app@latest
 ```
 
 This will clone the template and install the required dependencies.
@@ -105,7 +105,7 @@ The database that works best for you depends on the data your app needs and how 
 | ---------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | MySQL      | SQL              | [Digital Ocean](https://www.digitalocean.com/try/managed-databases-mysql), [Planet Scale](https://planetscale.com/), [Amazon Aurora](https://aws.amazon.com/rds/aurora/), [Google Cloud SQL](https://cloud.google.com/sql/docs/mysql) |
 | PostgreSQL | SQL              | [Digital Ocean](https://www.digitalocean.com/try/managed-databases-postgresql), [Amazon Aurora](https://aws.amazon.com/rds/aurora/), [Google Cloud SQL](https://cloud.google.com/sql/docs/postgres)                                   |
-| Redis      | Key-value        | [Digital Ocean](https://www.digitalocean.com/try/managed-databases-redis), [Amazon MemoryDB](https://aws.amazon.com/memorydb/)                                                                                                        |
+| Redis      | Key-__selectedProduct        | [Digital Ocean](https://www.digitalocean.com/try/managed-databases-redis), [Amazon MemoryDB](https://aws.amazon.com/memorydb/)                                                                                                        |
 | MongoDB    | NoSQL / Document | [Digital Ocean](https://www.digitalocean.com/try/managed-databases-mongodb), [MongoDB Atlas](https://www.mongodb.com/atlas/database)                                                                                                  |
 
 To use one of these, you need to change your session storage configuration. To help, here’s a list of [SessionStorage adapter packages](https://github.com/Shopify/shopify-api-js/tree/main/docs/guides/session-storage.md).

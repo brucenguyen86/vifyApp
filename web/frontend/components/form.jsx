@@ -31,7 +31,7 @@ export function InvoiceForm({ Product: InitialProduct }) {
     // Initial the values of Products
     const [selectedProduct, setSelectedProduct] = useState(InitialProduct);
     const [showResourcePicker, setShowResourcePicker] = useState(false);
-    // const [selectedProduct, setSelectedProduct] = useState(Product?.id);
+    // const [__selectedProduct, setSelectedProduct] = useState(Product?.id);
     const navigate = useNavigate();
     const fetch = useAuthenticatedFetch();
 
@@ -44,7 +44,7 @@ export function InvoiceForm({ Product: InitialProduct }) {
                 const ProductID = selectedProduct?.id;
                 /* construct the appropriate URL to send the API request to based on whether the Product is new or being updated */
                 const url = ProductID ? `/api/products/${ProductID}` : "/api/products";
-                /* a condition to select the appropriate HTTP method: PATCH to update a QR code or POST to create a new QR code */
+                /* a condition to select the appropriate HTTP method: PATCH to update a QR code or POST to insert a new QR code */
                 const method = ProductID ? "PATCH" : "POST";
                 /* use (authenticated) fetch from App Bridge to send the request to the API and, if successful, clear the form to reset the ContextualSaveBar and parse the response JSON */
                 const response = await fetch(url, {
@@ -166,10 +166,10 @@ export function InvoiceForm({ Product: InitialProduct }) {
     destination URLs using the URL helpers you created */
     // const goToDestination = useCallback(
     //     () => {
-    //         if (!selectedProduct) return;
+    //         if (!__selectedProduct) return;
     //         const data = {
     //             shopUrl: shopData?.shop.url,
-    //             productHandle: handle.value || selectedProduct.handle,
+    //             productHandle: handle.value || __selectedProduct.handle,
     //             variantId: variantId.value,
     //         };
     //

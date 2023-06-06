@@ -1,6 +1,13 @@
-import shopify from "./shopify.js";
+import shopify from "../shopify.js";
 import {GraphqlQueryError} from "@shopify/shopify-api";
-
+// Used for creating some common functions used by the backend to format Products data
+// We are adding API layer so that the frontend can access the data
+/*
+  The app's database stores the productId
+  This query is used to get the fields the frontend needs for those IDs.
+  By querying the Shopify GraphQL Admin API at runtime, data can't become stale.
+  This data is also queried so that the full state can be saved to the database, in order to generate QR code links.
+*/
 
 const FETCH_PRODUCTS_QUERY = `{
   products(first: 10) {
@@ -32,13 +39,14 @@ const FETCH_PRODUCTS_QUERY = `{
 }
 `
 
+
 const formatGQLResponse = (res) => {
     // edges : an array to hold all data
     const edges = res?.body?.data?.products?.edges || []
     if (!edges.length) return [];
     return edges.map(({node}) => ({
         id: node.id,
-        legacyID: node.legacyResourceId,
+        legacyID: node.legacyID,
         title: node.title,
         description: node.description,
         image: node.images.edges[0]?.node?.url || "https://w7.pngwing.com/pngs/915/345/png-transparent-multicolored-balloons-illustration-balloon-balloon-free-balloons-easter-egg-desktop-wallpaper-party-thumbnail.png",
@@ -49,7 +57,7 @@ const formatGQLResponse = (res) => {
         })),
     }));
 };
-export default async function fetchProducts(session,) {
+export default async function fetchProducts(session) {
     const client = new shopify.api.clients.Graphql({session});
 
     try {
@@ -70,3 +78,6 @@ export default async function fetchProducts(session,) {
     }
 }
 
+export async function getShopUrlFromSession(req,res) {
+    return `https://${res.locals.shopify.session.shop}`;
+}

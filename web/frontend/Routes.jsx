@@ -3,7 +3,7 @@ import { Routes as ReactRouterRoutes, Route } from "react-router-dom";
 /**
  * File-based routing.
  * @desc File-based routing that uses React Router under the hood.
- * To create a new route create a new .jsx file in `/pages` with a default export.
+ * To insert a new route insert a new .jsx file in `/pages` with a default export.
  *
  * Some examples:
  * * `/pages/index.jsx` matches `/`

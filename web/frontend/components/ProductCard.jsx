@@ -83,7 +83,7 @@ export const ProductCard = (props) => {
                 </LegacyCard>
             </Grid.Cell>
             <Grid.Cell columnSpan={{xs: 6, sm: 3, md: 3, lg: 6, xl: 6}}>
-                <LegacyCard title="Orders" sectioned>
+                <LegacyCard title="products" sectioned>
                     <FormLayout>
                         <TextField
                             label="Product Title"

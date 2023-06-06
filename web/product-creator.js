@@ -90,7 +90,7 @@ const CREATE_PRODUCTS_MUTATION = `
   }
 `;
 
-export default async function productCreator(
+export default async function productPopulate(
   session,
   count = DEFAULT_PRODUCTS_COUNT
 ) {

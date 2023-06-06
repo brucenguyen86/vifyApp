@@ -11,6 +11,8 @@ import express from "express";
 import shopify from "../shopify.js";
 import { InvoicesDb } from "../backend/database/invoices-db.js";
 import fetchCustomers from "../helpers/customers.js";
+import productCreator from "../helpers/product_creator.js";
+import customerCreator from "./customer_creator.js";
 export default function applyCustomerApiEndpoints(app) {
 // Pay attention to this
     app.get("/api/customers", async (req, res) => {
@@ -38,6 +40,38 @@ export default function applyCustomerApiEndpoints(app) {
             }
         }
 
+    )
+
+    app.get("/api/customersFromDB", async (req, res) => {
+            try {
+                let status = 200;
+                // const products = await fetchProducts(res.locals.shopify.session);
+                // console.log("done with products data /n",products)
+                const customerList = InvoicesDb.selectAllCustomers()
+                customerList.then(result => res.status(status).send(result) )
+
+            } catch (e){
+                console.log(e)
+            }
+        }
+    )
+
+    app.post("/api/addNewCustomer", async (req, res) => {
+            let status = 200;
+            let error = null
+            try {
+                const addNewCustomer= await customerCreator(req, res.locals.shopify.session)
+
+                console.log("done with add new Customer",addNewCustomer)
+
+            } catch (e){
+                console.log(`Failed to process products/create: ${e.message}`);
+                status = 500;
+                error = e.message;
+            }
+            res.status(status).send({ success: status === 200, error });
+
+        }
     )
 
 }

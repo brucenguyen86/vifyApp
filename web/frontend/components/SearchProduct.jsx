@@ -7,6 +7,7 @@ export default function AutocompleteExample(props) {
         options: propOptions,
         value: propValue, // used for default value setting
         onChange: onChange,
+        textFieldLabel: fieldLabel
     } = props;
 
     // Default Values are propValue
@@ -21,7 +22,7 @@ export default function AutocompleteExample(props) {
     }, [propValue]);
 
 
-    const deselectedOptions = useMemo(() => propOptions,[])
+    const deselectedOptions = useMemo(() => propOptions,[propOptions])
 
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [inputValue, setInputValue] = useState('');
@@ -73,10 +74,10 @@ export default function AutocompleteExample(props) {
     const textField = (
         <Autocomplete.TextField
             onChange={updateText}
-            label="Search"
+            label={fieldLabel}
             value={inputValue}
             prefix={<Icon source={SearchMinor} color="base" />}
-            placeholder="Search"
+            placeholder={fieldLabel}
             autoComplete="off"
         />
     );

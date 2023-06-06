@@ -21,7 +21,7 @@
     "@shopify/cli": "^3.46.1",
     "@shopify/react-form": "^2.5.5",
     "@syncfusion/ej2-react-grids": "^21.2.6",
-    "bootstrap": "^5.2.3",
+    "bootstrap": "^3.4.1",
     "mongodb": "5.5",
     "nodemon": "^2.0.22",
     "react-hook-form": "^7.44.1",
@@ -29,5 +29,8 @@
     "use-react-router-breadcrumbs": "^4.0.1",
     "validator": "^13.9.0"
   },
-  "author": "Brucenguyen"
+  "author": "Brucenguyen",
+  "devDependencies": {
+    "tailwindcss": "^3.3.2"
+  }
 }

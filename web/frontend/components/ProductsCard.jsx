@@ -40,7 +40,7 @@ export function ProductsCard() {
 
     const handlePopulate = async () => {
         setIsLoading(true);
-        const response = await fetch("/api/products/create");
+        const response = await fetch("/api/products/populate");
 
         if (response.ok) {
             await refetchProductCount();
@@ -62,7 +62,8 @@ export function ProductsCard() {
         <>
             {toastMarkup}
             <LegacyCard
-                title="Product Counter"
+
+                title="Product creator for testing"
                 sectioned
                 primaryFooterAction={{
                     content: "Populate 5 products",
@@ -72,11 +73,9 @@ export function ProductsCard() {
             >
 
                     <p>
-                        Sample products are created with a default title and price. You can
-                        remove them at any time.
+                        Sample products are created with a default title,images and price
                     </p>
                     <Text as="h4" variant="headingMd">
-                        TOTAL PRODUCTS
                         <Text variant="bodyMd" as="p" fontWeight="semibold">
                             {/*{isLoadingCount ? "-" : data.count}*/}
                         </Text>

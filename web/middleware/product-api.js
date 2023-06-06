@@ -12,6 +12,7 @@ import shopify from "../shopify.js";
 import { InvoicesDb } from "../backend/database/invoices-db.js";
 import fetchProducts, {
 } from "../helpers/products.js";
+import productCreator from "../helpers/product_creator.js";
 
 
 const SHOP_DATA_QUERY = `
@@ -58,7 +59,8 @@ const SHOP_DATA_QUERY = `
   }
 `;
 export default function applyProductApiEndpoints(app) {
-    app.use(express.json());
+    // app.use(express.json());
+
 app.get("/api/shop-data",async (req,res) => {
     const client = new shopify.api.clients.Graphql({
         session: res.locals.shopify.session,
@@ -88,6 +90,17 @@ app.get("/api/shop-data",async (req,res) => {
                         productTitle: product.title,
                         productDescription : product.description,
                     }
+                    product.variants.map( async variant => {
+                        let dataVariant={
+                            productId: product.id,
+                            variantId: variant.id,
+                            variantTitle: variant.title,
+                            price: variant.price,
+                        }
+                        let isInsertedToVariantTable = await InvoicesDb.insertVariants(dataVariant)
+                        console.log("Is inserted to Variant Table",isInsertedToVariantTable)
+                    })
+
                     const isInserted = await InvoicesDb.insert(data)
                     console.log("is Inserted", isInserted)
                 })
@@ -99,6 +112,53 @@ app.get("/api/shop-data",async (req,res) => {
 
 
     )
+
+
+
+app.get("/api/productsFromDB", async (req, res) => {
+        try {
+            let status = 200;
+            // const products = await fetchProducts(res.locals.shopify.session);
+            // console.log("done with products data /n",products)
+            const productList = InvoicesDb.selectAllProducts()
+            productList.then(result => res.status(status).send(result))
+
+        } catch (e){
+            console.log(e)
+        }
+    }
+)
+    app.get("/api/variantsFromDB", async (req, res) => {
+            try {
+                let status = 200;
+                // const products = await fetchProducts(res.locals.shopify.session);
+                // console.log("done with products data /n",products)
+                const variantList = InvoicesDb.selectAllVariants()
+                variantList.then(result => res.status(status).send(result))
+
+            } catch (e){
+                console.log(e)
+            }
+        }
+    )
+
+    app.post("/api/addNewLineItem", async (req, res) => {
+        let status = 200;
+        let error = null
+        try {
+               const addNewLineItem= await productCreator(req, res.locals.shopify.session)
+                console.log("done with add new Line Item",addNewLineItem)
+            } catch (e){
+                // console.log(e)
+                console.log(`Failed to process products/create: ${e.message}`);
+                status = 500;
+                error = e.message;
+            }
+        res.status(status).send({ success: status === 200, error });
+
+        }
+    )
+
 
 }
     //
